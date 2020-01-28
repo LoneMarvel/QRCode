@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% set i = namespace(value=0) %}
+{% block content %}
+    <center><h3>List Of All QR Codes</h3><br /></center>
+    <div class="row">
+    {% for fImg in fileList %}                                         
+        <div class="col-sm-3 inline">
+            <div class="card rounded">
+                <h5 class="card-header"><a href="{{ url_for('static', filename='qrImages/'+fImg) }}">{{fImg}}</a></h5> 
+                <div class="card-body" id="CardBody">                       
+                    <img src="{{ url_for('static', filename='qrImages/'+fImg) }}" border="0" width="128" height="128" />
+                </div>
+            </div>
+        </div>                                            
+        {% set i.value = i.value+1 %}
+        {% if i.value == 4 %}
+            </div><br />
+            <div class="row">
+            {% set i.value = 0 %}
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
